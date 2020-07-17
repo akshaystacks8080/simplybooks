@@ -1,0 +1,19 @@
+{
+  "name": "simplybooks",
+  "version": "1.0.0",
+  "description": "Electron JS based book keeping application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshaystacks8080/simplybooks.git"
+  },
+  "author": "Akshay Pednekar & Aditya Patange",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/akshaystacks8080/simplybooks/issues"
+  },
+  "homepage": "https://github.com/akshaystacks8080/simplybooks#readme"
+}
