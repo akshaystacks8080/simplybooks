@@ -1,6 +1,6 @@
 # Simply Books
 
-A books library management application built with Java.
+A books library management application built with Electron JS.
 
 ## References
 
