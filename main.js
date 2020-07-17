@@ -9,6 +9,8 @@ const { app, BrowserWindow } = electron;
 
 //declares the main window
 let mainWindow;
+let rentBookWindow;
+let aboutBookWindow;
 
 //Initial Function when app is loaded
 function onReady() {
@@ -55,6 +57,23 @@ function loadRentBookWindow() {
   rentBookWindow.loadURL(rentBookWindowUrl);
 }
 
+function loadAboutWindow() {
+  aboutBookWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  const aboutWindowUrl = url.format({
+    pathname: path.join(__dirname, "about.html"),
+    protocol: "file",
+    slashes: true,
+  });
+
+  aboutBookWindow.loadURL(aboutWindowUrl);
+}
+
 app.on("ready", onReady);
 
 ipcMain.on("openwindow:rentbook", loadRentBookWindow);
+ipcMain.on("openwindow:about", loadAboutWindow);
