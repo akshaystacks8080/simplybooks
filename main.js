@@ -2,6 +2,7 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
+const { ipcMain, protocol } = require("electron");
 
 //gets object from the electron object and stores inside the variable(destructuring)
 const { app, BrowserWindow } = electron;
@@ -38,4 +39,22 @@ function onReady() {
   mainWindow.loadURL(mainWindowUrl);
 }
 
+function loadRentBookWindow() {
+  rentBookWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  const rentBookWindowUrl = url.format({
+    pathname: path.join(__dirname, "rentBook.html"),
+    protocol: "file",
+    slashes: true,
+  });
+
+  rentBookWindow.loadURL(rentBookWindowUrl);
+}
+
 app.on("ready", onReady);
+
+ipcMain.on("openwindow:rentbook", loadRentBookWindow);
