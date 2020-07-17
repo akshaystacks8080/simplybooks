@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/akshaystacks8080/simplybooks/issues"
   },
-  "homepage": "https://github.com/akshaystacks8080/simplybooks#readme"
+  "homepage": "https://github.com/akshaystacks8080/simplybooks#readme",
+  "dependencies": {
+    "electron": "^9.1.0"
+  }
 }
