@@ -5,7 +5,7 @@ const path = require("path");
 const { ipcMain, protocol } = require("electron");
 
 //gets object from the electron object and stores inside the variable(destructuring)
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow, Menu } = electron;
 
 //declares the main window
 let mainWindow;
@@ -40,6 +40,9 @@ function onReady() {
 
   //loads the window
   mainWindow.loadURL(mainWindowUrl);
+
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  Menu.setApplicationMenu(mainMenu);
 }
 
 function loadRentBookWindow() {
@@ -95,3 +98,25 @@ app.on("ready", onReady);
 ipcMain.on("openwindow:rentbook", loadRentBookWindow);
 ipcMain.on("openwindow:about", loadAboutWindow);
 ipcMain.on("openwindow:viewbooks", loadViewBooksWindow);
+
+const mainMenuTemplate = [
+  {
+    label: "Developer Tools",
+    submenu: [
+      {
+        label: "Toggle DevTools",
+        accelerator: process.platform == "darwin" ? "Command+I" : "Ctrl+I",
+        click: function (item, focusedWindow) {
+          focusedWindow.toggleDevTools();
+        },
+      },
+      {
+        role: "reload",
+      },
+    ],
+  },
+];
+
+if (process.platform == "darwin") {
+  mainMenuTemplate.unshift({ label: "" });
+}
