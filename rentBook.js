@@ -13,6 +13,13 @@ function displayResults(query) {
   client.query(
     `SELECT title FROM books WHERE LOWER(title) LIKE LOWER('%${query}%')`,
     (err, res) => {
+      if (res.rows.length == 0) {
+        const li = document.createElement("li");
+        li.className = "collection-item";
+        const textNode = document.createTextNode("No Results Found.");
+        li.appendChild(textNode);
+        searchResultsUl.appendChild(li);
+      }
       res.rows.forEach((row) => {
         const li = document.createElement("li");
         li.className = "collection-item";
