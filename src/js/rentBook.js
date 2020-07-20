@@ -28,7 +28,6 @@ function displayResults(query) {
         const textNode = document.createTextNode(row.title);
         li.setAttribute("bookId", row.bookid);
         li.appendChild(textNode);
-        li.addEventListener("dblclick", showBookOptions);
         searchResultsUl.appendChild(li);
       });
     }
@@ -41,10 +40,4 @@ function searchBook(evt) {
   const searchBar = document.querySelector("#input-search");
   const searchQuery = searchBar.value;
   displayResults(searchQuery);
-}
-
-function showBookOptions(evt) {
-  const bookId = evt.target.getAttribute("bookId");
-  console.log("Clicked book", evt.target.innerHTML, bookId);
-  ipcRenderer.send("openwindow:bookoptions", bookId);
 }
