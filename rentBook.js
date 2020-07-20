@@ -5,28 +5,29 @@ const btnSearchBook = document.querySelector("#btn-searchbook");
 
 btnSearchBook.addEventListener("click", searchBook);
 
-async function searchDatabase(query) {
-  const result = [];
+function displayResults(query) {
+  const searchResultsUl = document.querySelector("#search-results");
+  searchResultsUl.innerHTML = "";
   const client = new Client(dbconfig);
   client.connect();
-  await client.query(
+  client.query(
     `SELECT title FROM books WHERE LOWER(title) LIKE LOWER('%${query}%')`,
     (err, res) => {
       res.rows.forEach((row) => {
-        //console.log(row);
-        result.push(row);
+        const li = document.createElement("li");
+        li.className = "collection-item";
+        const textNode = document.createTextNode(row.title);
+        li.appendChild(textNode);
+        searchResultsUl.appendChild(li);
       });
     }
   );
-  return result;
 }
 
-async function searchBook(evt) {
+function searchBook(evt) {
   evt.preventDefault();
   console.log("search btn clicked");
   const searchBar = document.querySelector("#input-search");
   const searchQuery = searchBar.value;
-  console.log(searchQuery);
-  const result = await searchDatabase(searchQuery);
-  console.log(result);
+  displayResults(searchQuery);
 }
