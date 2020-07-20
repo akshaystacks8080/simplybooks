@@ -1,5 +1,5 @@
 const { Client } = require("pg");
-const { dbconfig } = require("./dbconfig");
+const { dbconfig } = require("./js/dbconfig");
 
 const btnSearchBook = document.querySelector("#btn-searchbook");
 

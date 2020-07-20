@@ -27,7 +27,7 @@ function onReady() {
 
   //generates file html url
   const mainWindowParams = {
-    pathname: path.join(__dirname, "homeScreen.html"),
+    pathname: path.join(__dirname, "src/homeScreen.html"),
     protocol: "file",
     slashes: true,
   };
@@ -53,7 +53,7 @@ function loadRentBookWindow() {
   });
 
   const rentBookWindowUrl = url.format({
-    pathname: path.join(__dirname, "rentBook.html"),
+    pathname: path.join(__dirname, "src/rentBook.html"),
     protocol: "file",
     slashes: true,
   });
@@ -69,7 +69,7 @@ function loadAboutWindow() {
   });
 
   const aboutWindowUrl = url.format({
-    pathname: path.join(__dirname, "about.html"),
+    pathname: path.join(__dirname, "src/about.html"),
     protocol: "file",
     slashes: true,
   });
@@ -85,7 +85,7 @@ function loadViewBooksWindow() {
   });
 
   const viewBooksWindowUrl = url.format({
-    pathname: path.join(__dirname, "viewBooks.html"),
+    pathname: path.join(__dirname, "src/viewBooks.html"),
     protocol: "file",
     slashes: true,
   });
