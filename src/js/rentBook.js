@@ -51,5 +51,21 @@ function searchBook(evt) {
 function rentButtonClick(evt) {
   const bookId = evt.target.getAttribute("bookId");
   console.log("Rent button clicked", bookId);
-  M.toast({ html: `Rented Book ${bookId}`, displayLength: 3000 });
+  const client = new Client(dbconfig);
+  client.connect();
+  client.query(`SELECT title FROM books WHERE bookid=${bookId}`, (err, res) => {
+    bookTitle = res.rows[0].title;
+    const client2 = new Client(dbconfig);
+    client2.connect();
+    client2.query(
+      `INSERT INTO rented_books VALUES(${bookId}, '${bookTitle}')`,
+      (err, res) => {
+        M.toast({
+          html: `Rented Book ${bookId} ${bookTitle}`,
+          displayLength: 3000,
+        });
+      }
+    );
+  });
+  //M.toast({ html: `Rented Book ${bookId}`, displayLength: 3000 });
 }
