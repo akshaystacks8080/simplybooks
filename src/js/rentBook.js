@@ -51,4 +51,5 @@ function searchBook(evt) {
 function rentButtonClick(evt) {
   const bookId = evt.target.getAttribute("bookId");
   console.log("Rent button clicked", bookId);
+  M.toast({ html: `Rented Book ${bookId}`, displayLength: 3000 });
 }
