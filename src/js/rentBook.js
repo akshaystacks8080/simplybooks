@@ -24,10 +24,14 @@ function displayResults(query) {
       }
       res.rows.forEach((row) => {
         const li = document.createElement("li");
-        li.className = "collection-item";
+        const rentButton = document.createElement("button");
+        rentButton.innerHTML = "Rent";
+        rentButton.className = "btn waves-effect waves-light";
+        li.className = "collection-item booklist-item";
         const textNode = document.createTextNode(row.title);
         li.setAttribute("bookId", row.bookid);
         li.appendChild(textNode);
+        li.appendChild(rentButton);
         searchResultsUl.appendChild(li);
       });
     }
