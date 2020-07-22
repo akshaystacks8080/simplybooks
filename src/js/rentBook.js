@@ -27,9 +27,11 @@ function displayResults(query) {
         const rentButton = document.createElement("button");
         rentButton.innerHTML = "Rent";
         rentButton.className = "btn waves-effect waves-light";
+        rentButton.addEventListener("click", rentButtonClick);
         li.className = "collection-item booklist-item";
         const textNode = document.createTextNode(row.title);
         li.setAttribute("bookId", row.bookid);
+        rentButton.setAttribute("bookId", row.bookid);
         li.appendChild(textNode);
         li.appendChild(rentButton);
         searchResultsUl.appendChild(li);
@@ -44,4 +46,9 @@ function searchBook(evt) {
   const searchBar = document.querySelector("#input-search");
   const searchQuery = searchBar.value;
   displayResults(searchQuery);
+}
+
+function rentButtonClick(evt) {
+  const bookId = evt.target.getAttribute("bookId");
+  console.log("Rent button clicked", bookId);
 }
