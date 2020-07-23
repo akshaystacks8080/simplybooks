@@ -62,14 +62,36 @@ function insertBook(bookId, bookTitle) {
   );
 }
 
-function rentButtonClick(evt) {
+async function isBookRented(bookId) {
+  let isRented = false;
+  const client = new Client(dbconfig);
+  client.connect();
+  const { rows } = await client.query(
+    `SELECT bookid FROM rented_books WHERE bookid=${bookId}`
+  );
+  if (rows.length) {
+    isRented = true;
+  }
+  //console.log(rows, isRented);
+  return isRented;
+}
+
+async function rentButtonClick(evt) {
   const bookId = evt.target.getAttribute("bookId");
   console.log("Rent button clicked", bookId);
   const client = new Client(dbconfig);
   client.connect();
-  client.query(`SELECT title FROM books WHERE bookid=${bookId}`, (err, res) => {
-    bookTitle = res.rows[0].title;
-    insertBook(bookId, bookTitle);
-  });
+  client.query(
+    `SELECT title FROM books WHERE bookid=${bookId}`,
+    async (err, res) => {
+      bookTitle = res.rows[0].title;
+      const isRented = await isBookRented(bookId);
+      // console.log("rentButtonClick:", isRented);
+      if (!isRented) {
+        console.log("Book not rented - renting it.");
+        insertBook(bookId, bookTitle);
+      }
+    }
+  );
   //M.toast({ html: `Rented Book ${bookId}`, displayLength: 3000 });
 }
