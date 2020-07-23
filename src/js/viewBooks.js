@@ -5,7 +5,7 @@ const client = new Client(dbconfig);
 
 client.connect();
 
-client.query("SELECT title FROM books LIMIT 100", (err, res) => {
+client.query("SELECT title FROM books", (err, res) => {
   const rows = res.rows;
   console.log(rows);
   rows.forEach((row) => {
