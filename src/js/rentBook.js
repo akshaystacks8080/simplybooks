@@ -48,6 +48,20 @@ function searchBook(evt) {
   displayResults(searchQuery);
 }
 
+function insertBook(bookId, bookTitle) {
+  const client2 = new Client(dbconfig);
+  client2.connect();
+  client2.query(
+    `INSERT INTO rented_books VALUES(${bookId}, '${bookTitle}')`,
+    (err, res) => {
+      M.toast({
+        html: `Rented Book ${bookId} ${bookTitle}`,
+        displayLength: 3000,
+      });
+    }
+  );
+}
+
 function rentButtonClick(evt) {
   const bookId = evt.target.getAttribute("bookId");
   console.log("Rent button clicked", bookId);
@@ -55,17 +69,7 @@ function rentButtonClick(evt) {
   client.connect();
   client.query(`SELECT title FROM books WHERE bookid=${bookId}`, (err, res) => {
     bookTitle = res.rows[0].title;
-    const client2 = new Client(dbconfig);
-    client2.connect();
-    client2.query(
-      `INSERT INTO rented_books VALUES(${bookId}, '${bookTitle}')`,
-      (err, res) => {
-        M.toast({
-          html: `Rented Book ${bookId} ${bookTitle}`,
-          displayLength: 3000,
-        });
-      }
-    );
+    insertBook(bookId, bookTitle);
   });
   //M.toast({ html: `Rented Book ${bookId}`, displayLength: 3000 });
 }
