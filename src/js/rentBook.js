@@ -13,7 +13,8 @@ function displayResults(query) {
   const client = new Client(dbconfig);
   client.connect();
   client.query(
-    `SELECT bookid, title FROM books WHERE LOWER(title) LIKE LOWER('%${query}%')`,
+    `SELECT bookid, title FROM books WHERE LOWER(title) LIKE LOWER('%${query}%')
+     AND bookid NOT IN(SELECT bookid FROM rented_books)`,
     (err, res) => {
       if (res.rows.length == 0) {
         const li = document.createElement("li");
