@@ -21,7 +21,17 @@ client.query("SELECT bookid, title FROM rented_books", (err, res) => {
   });
 });
 
-function returnBookClick(evt) {
+async function returnBook(bookId) {
+  const client = new Client(dbconfig);
+  client.connect();
+  await client.query(`DELETE FROM rented_books WHERE bookid=${bookId}`);
+}
+
+async function returnBookClick(evt) {
   const bookId = evt.target.getAttribute("bookId");
-  console.log("Return book: ", bookId);
+  await returnBook(bookId);
+  M.toast({
+    html: `Returned Book`,
+    displayLength: 3000,
+  });
 }
