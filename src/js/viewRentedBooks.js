@@ -34,4 +34,6 @@ async function returnBookClick(evt) {
     html: `Returned Book`,
     displayLength: 3000,
   });
+  const li = evt.target.parentNode;
+  li.remove();
 }
