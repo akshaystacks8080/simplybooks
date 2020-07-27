@@ -13,6 +13,7 @@ let rentBookWindow;
 let aboutBookWindow;
 let viewBooksWindow;
 let viewRentedBooksWindow;
+let addBookWindow;
 
 //Initial Function when app is loaded
 function onReady() {
@@ -110,12 +111,27 @@ function loadViewRentedBooksWindow() {
   viewRentedBooksWindow.loadURL(viewRentedBooksWindowUrl);
 }
 
+function loadAddBookWindow() {
+  addBookWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  const addBookWindowUrl = url.format({
+    pathname: path.join(__dirname, "src/addBook.html"),
+    protocol: "file",
+    slashes: true,
+  });
+  addBookWindow.loadURL(addBookWindowUrl);
+}
 app.on("ready", onReady);
 
 ipcMain.on("openwindow:rentbook", loadRentBookWindow);
 ipcMain.on("openwindow:about", loadAboutWindow);
 ipcMain.on("openwindow:viewbooks", loadViewBooksWindow);
 ipcMain.on("openwindow:viewrentedbooks", loadViewRentedBooksWindow);
+ipcMain.on("openwindow:addbook", loadAddBookWindow);
 
 const mainMenuTemplate = [
   {
