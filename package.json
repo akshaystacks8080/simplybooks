@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/akshaystacks8080/simplybooks#readme",
   "dependencies": {
-    "electron": "^18.3.7",
+    "electron": "^40.6.1",
     "pg": "^8.18.0"
   }
 }
